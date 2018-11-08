@@ -16,15 +16,7 @@ from PIL import Image
 
 def writeDicom(dataset, outfilename):
 
-    print(type(dataset))
-    print(dataset)
-
-    # dataset = "r" + dataset
-
     datasetObj = json.loads(dataset)
-    # datasetObj = eval(dataset)
-
-    # print(type(datasetObj['status']))
 
     filename = get_testdata_files('color-px.dcm')[0]
 
