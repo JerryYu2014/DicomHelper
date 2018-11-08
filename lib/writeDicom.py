@@ -16,11 +16,14 @@ from PIL import Image
 
 def writeDicom(dataset, outfilename):
 
-    # print(type(dataset))
+    print(type(dataset))
+    print(dataset)
 
-    # datasetObj = json.loads(dataset)
+    # dataset = "r" + dataset
 
-    # print(type(datasetObj))
+    datasetObj = json.loads(dataset)
+    # datasetObj = eval(dataset)
+
     # print(type(datasetObj['status']))
 
     filename = get_testdata_files('color-px.dcm')[0]
@@ -42,7 +45,9 @@ def writeDicom(dataset, outfilename):
     # file_meta.TransferSyntaxUID = "1.2.840.10008.1.2.5"
 
     # Pixel Data
-    img = Image.open('123.bmp')
+    # img = Image.open('123.bmp')
+    img = Image.open(datasetObj['ImagePixel']['PixelData'])
+    
     nparr = np.asarray(img)
 
     # ds[0x7FE0, 0x0010] = DataElement(0x7FE00010, 'OW', img.tobytes())
@@ -63,7 +68,7 @@ def writeDicom(dataset, outfilename):
     # Patient's Birth Date
     ds[0x0010, 0x0030] = DataElement(0x00100030, 'DA', '20010101')
     # Patient's Sex
-    ds[0x0010, 0x0040] = DataElement(0x00100040, 'CS', '男'.encode('GB18030'))
+    ds[0x0010, 0x0040] = DataElement(0x00100040, 'CS', 'male')
     # Study Date
     ds[0x0008, 0x0020] = DataElement(0x00080020, 'DA', '20181108')
     # Study Time
